@@ -40,11 +40,12 @@ int ht_hash(hash_table_t *hash_table_members, char *shortened_url_key) {
 
   while (shortened_url[i] != '\0' && hash_value < INT_MAX) {
     if (i % 2 == 0)
-      hash_value >> 8;
+      hash_value = hash_value >> 1;
+      hash_value += 1;
     else {
       int char_value = (int) shortened_url[i];
       hash_value += char_value;
-      hash_value *= char_value;
+      hash_value = hash_value << 3;
     }
 
   }
