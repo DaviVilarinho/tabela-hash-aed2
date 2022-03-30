@@ -163,3 +163,30 @@ void free_hash_table(hash_table_t *hash_table_members) {
 
   free(hash_table_members);
 }
+
+/* professora vi depois na revisão que precisava disso aqui */
+int remove_url_table(hash_table_t *hash_table, char *url) {
+  int hash_position = 0, i;
+  url_dict_t *url_assoc;
+
+  hash_position = ht_hash(hash_table_members, short_url);
+
+  url_assoc = hash_table_members->table[hash_position];
+
+  if (url_assoc != NULL) {
+    i = hash_position;
+    while (url_assoc != NULL) {
+      if (strcmp(hash_table_members->table[i]->shortened_url, short_url) == 0) {
+        hash_table->table[i] = NULL;
+      }
+
+      // se não continuar
+      i++;
+      if (i >= hash_table_members->length)
+        i = 0; // circulando
+      url_assoc = hash_table_members->table[i];
+    }
+  }
+
+  return 0; // nada
+}
